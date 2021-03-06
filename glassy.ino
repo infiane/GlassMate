@@ -10,6 +10,7 @@ OLedSmart oLedSmart = OLedSmart(display);
 
 void setup()
 {
+  Serial.begin(9600);
   oLedSmart.Initialize();
   delay(5000);
   oLedSmart.PrintTimeANDDate("2351", "10");

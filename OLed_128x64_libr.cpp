@@ -283,6 +283,7 @@ void OLedSmart::printSymbol_18x29(char symb, int xPos, int yPos)
 // prints a given symbol 6x9 pixels at a given position
 void OLedSmart::printSymbol_6x9(int symbID, int xPos, int yPos)
 {
+  vector<vector<int>> arr;
   switch(symbID)
   {
     case 'а':
@@ -394,6 +395,17 @@ void OLedSmart::printSymbol_6x9(int symbID, int xPos, int yPos)
       drawHLine(xPos + 1, xPos + 1, yPos + 8, WHITE);
       break;
     case '0':
+      arr = vector<vector<int>>(9,  vector<int>(6,   0, 0, 1, 1, 0, 0),
+                                    vector<int>(6,   0, 1, 0, 0, 1, 0),
+                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
+                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
+                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
+                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
+                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
+                                    vector<int>(6,   0, 1, 0, 0, 1, 0),
+                                    vector<int>(6,   0, 0, 1, 1, 0, 0));
+      Serial.println(arr.get(0).get(2), DEC);
+      drawFromBitmap(arr, xPos, yPos);
       break;
     case '1':
       break;
@@ -489,4 +501,11 @@ void OLedSmart::drawFromBitmap(int (&bitmap)[rows][cols], int xPos, int yPos)
   for (int y = 0; y < rows; y++)
     for (int x = 0; x < cols; x++)
       display.drawPixel(xPos + x, yPos + y, bitmap[y][x] == 1 ? WHITE : BLACK);
+}
+
+void OLedSmart::drawFromBitmap(vector<vector<int>> bitmap, int xPos, int yPos)
+{
+  for (unsigned int y = 0; y < bitmap.count(); y++)
+    for (unsigned int x = 0; x < bitmap.get(y).count(); x++)
+      display.drawPixel(xPos + x, yPos + y, bitmap.get(y).get(x) == 1 ? WHITE : BLACK);
 }

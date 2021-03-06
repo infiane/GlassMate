@@ -26,6 +26,9 @@ class OLedSmart
 
     template <int rows, int cols>
     void drawFromBitmap(int (&bitmap)[rows][cols], int xPos, int yPos);
+
+    void OLedSmart::drawFromBitmap(vector<vector<int>> bitmap, int xPos, int yPos);
+
     //---------------
 
     //---variables---

@@ -1,5 +1,7 @@
 #include "OLed_128x64_libr.h"
 
+
+
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
@@ -10,10 +12,9 @@ OLedSmart oLedSmart = OLedSmart(display);
 
 void setup()
 {
-  Serial.begin(9600);
   oLedSmart.Initialize();
   delay(5000);
-  oLedSmart.PrintTimeANDDate("2351", "10");
+  oLedSmart.PrintTimeANDDate("1549", "25");
 }
 
 void loop()

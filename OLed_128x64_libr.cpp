@@ -33,8 +33,9 @@ void OLedSmart::PrintTimeANDDate(String time, String date)
   printSymbol_18x29(time[3], 98, 29);
   printSymbol_18x29(':', 55, 29);
 
+  
   printSymbol_6x9('0', 14, 16);
-  printSymbol_6x9('ф', 22, 16);
+  printSymbol_6x9('1', 22, 16);
   printSymbol_6x9('д', 30, 16);
   printSymbol_6x9('е', 38, 16);
   printSymbol_6x9('и', 46, 16);
@@ -283,7 +284,7 @@ void OLedSmart::printSymbol_18x29(char symb, int xPos, int yPos)
 // prints a given symbol 6x9 pixels at a given position
 void OLedSmart::printSymbol_6x9(int symbID, int xPos, int yPos)
 {
-  vector<vector<int>> arr;
+  
   switch(symbID)
   {
     case 'а':
@@ -395,19 +396,19 @@ void OLedSmart::printSymbol_6x9(int symbID, int xPos, int yPos)
       drawHLine(xPos + 1, xPos + 1, yPos + 8, WHITE);
       break;
     case '0':
-      arr = vector<vector<int>>(9,  vector<int>(6,   0, 0, 1, 1, 0, 0),
-                                    vector<int>(6,   0, 1, 0, 0, 1, 0),
-                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
-                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
-                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
-                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
-                                    vector<int>(6,   1, 0, 0, 0, 0, 1),
-                                    vector<int>(6,   0, 1, 0, 0, 1, 0),
-                                    vector<int>(6,   0, 0, 1, 1, 0, 0));
-      Serial.println(arr.get(0).get(2), DEC);
-      drawFromBitmap(arr, xPos, yPos);
+      drawHLine(xPos + 2, xPos + 3, yPos, WHITE);
+      drawHLine(xPos + 1, xPos + 1, yPos + 1, WHITE);
+      drawHLine(xPos + 4, xPos + 4, yPos + 1, WHITE);
+      drawVLine(xPos, yPos + 2, yPos + 6, WHITE);
+      drawVLine(xPos + 5, yPos + 2, yPos + 6, WHITE);
+      drawHLine(xPos + 1, xPos + 1, yPos + 7, WHITE);
+      drawHLine(xPos + 4, xPos + 4, yPos + 7, WHITE);
+      drawHLine(xPos + 2, xPos + 3, yPos + 8, WHITE);
       break;
     case '1':
+      drawVLine(xPos + 4, yPos, yPos + 8, WHITE);
+      drawHLine(xPos + 3, xPos + 3, yPos + 1, WHITE);
+      drawHLine(xPos + 2, xPos + 2, yPos + 2, WHITE);
       break;
     case '2':
       drawHLine(xPos + 1, xPos + 4, yPos, WHITE);
@@ -494,18 +495,3 @@ void OLedSmart::drawVLine(int x, int yFrom, int yTo, int color)
     display.drawPixel(x, dY, color);
 }
 //----------------------------------------
-
-template <int rows, int cols>
-void OLedSmart::drawFromBitmap(int (&bitmap)[rows][cols], int xPos, int yPos)
-{
-  for (int y = 0; y < rows; y++)
-    for (int x = 0; x < cols; x++)
-      display.drawPixel(xPos + x, yPos + y, bitmap[y][x] == 1 ? WHITE : BLACK);
-}
-
-void OLedSmart::drawFromBitmap(vector<vector<int>> bitmap, int xPos, int yPos)
-{
-  for (unsigned int y = 0; y < bitmap.count(); y++)
-    for (unsigned int x = 0; x < bitmap.get(y).count(); x++)
-      display.drawPixel(xPos + x, yPos + y, bitmap.get(y).get(x) == 1 ? WHITE : BLACK);
-}

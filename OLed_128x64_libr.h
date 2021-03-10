@@ -6,7 +6,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include "Arduino.h"
-#include "Vector.h"
 
 
 class OLedSmart
@@ -23,11 +22,6 @@ class OLedSmart
     void printSymbol_6x9(int symbID, int xPos, int yPos);
     void drawHLine(int xFrom, int xTo, int y, int color);
     void drawVLine(int x, int yFrom, int yTo, int color);
-
-    template <int rows, int cols>
-    void drawFromBitmap(int (&bitmap)[rows][cols], int xPos, int yPos);
-
-    void OLedSmart::drawFromBitmap(vector<vector<int>> bitmap, int xPos, int yPos);
 
     //---------------
 
